@@ -1,1 +1,1 @@
-# springmvc-demo
+# springmvc-maven-eclipse-demo
