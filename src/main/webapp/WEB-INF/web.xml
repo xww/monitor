@@ -4,10 +4,10 @@
          xmlns:web="http://java.sun.com/xml/ns/javaee"         
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>springmvc-demo</display-name>
-  <context-param>     
+  <!-- <context-param>     
       <param-name>log4jConfigLocation</param-name>     
-      <param-value>/WEB-INF/log4j.properties</param-value>     
-   </context-param>     
+      <param-value>/WEB-INF/conf/log4j.properties</param-value>     
+   </context-param>  -->    
    <context-param>     
       <param-name>log4jRefreshInterval</param-name>     
       <param-value>6000</param-value>     
