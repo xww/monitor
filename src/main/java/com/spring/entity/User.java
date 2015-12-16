@@ -7,10 +7,11 @@ public class User{
       
       
     public User(String name, String password) {  
-        super();  
+        super();
+        
         this.name = name;  
         this.password = password;  
-    }  
+    } 
     public int getId() {  
         return id;  
     }  
