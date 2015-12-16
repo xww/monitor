@@ -18,6 +18,7 @@
 	
 
 	<context:property-placeholder location="classpath*:jdbc.properties" />
+	<context:property-placeholder location="classpath*:log4j.properties" />
 
 	<!-- 数据库连接 -->
 	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
