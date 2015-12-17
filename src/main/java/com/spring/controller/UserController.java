@@ -69,18 +69,18 @@ public class UserController {
     public ModelAndView Add(HttpServletRequest request, HttpServletResponse response, 
     		@RequestHeader(value="User-Agent", defaultValue="") String userAgent){
     		//@CookieValue(value="JSESSIONID", defaultValue="") String jsessionId) {     
-    	
+    	System.out.println(request.getAttribute("xww"));//拦截器塞进去的属性
     	//测试cookie
     	Cookie[] cookies = request.getCookies();
     	if (cookies !=null){
     		System.out.println(cookies.length);
     	}
     	Cookie cookie1 = new Cookie("key1", "value1");
-    	cookie1.setMaxAge(60*60*24*7);//7day
+    	cookie1.setMaxAge(60*60*24*1);//1day
 		response.addCookie(cookie1);
 		
 		Cookie cookie2 = new Cookie("aaaaJSESSIONID", "JSESSIONID-value");
-    	cookie2.setMaxAge(60*60*24*7);//7day
+    	cookie2.setMaxAge(60*60*24*1);//1day
 		response.addCookie(cookie2);
 		//cookie测试结束
 		
@@ -175,7 +175,7 @@ public class UserController {
     public String testSession2(HttpServletRequest request,HttpServletResponse response){
     	//模拟网站的login页面
     	Cookie cookie = new Cookie("SESSIONID", "123");
-    	cookie.setMaxAge(60*60*24*7);//7day
+    	cookie.setMaxAge(60*60*24*1);//1day
 		response.addCookie(cookie);
     	
     	HttpSession session = request.getSession(true);//没有Session就新建一个
@@ -195,6 +195,15 @@ public class UserController {
     	request.getSession().removeAttribute("123");
     	return "test session success";
     }
+    
+    @RequestMapping("/login")
+    @ResponseBody
+    public String login(HttpServletRequest request){
+    	System.out.println("login");
+    	return "login success!";
+    }
+    
+    
     
       
 }
