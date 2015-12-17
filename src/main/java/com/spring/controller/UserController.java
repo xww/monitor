@@ -1,11 +1,14 @@
 package com.spring.controller;
 
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 //import org.slf4j.Logger;  
 //import org.slf4j.LoggerFactory;  
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.entity.*;
 import com.spring.service.*;
 import org.apache.log4j.Logger;
+import org.aspectj.weaver.ast.And;
 
 class myUser{
 	String name;
@@ -63,8 +67,8 @@ public class UserController {
     //@RequestMapping(value = "/", method = RequestMethod.GET) 
     @RequestMapping("/index")
     public ModelAndView Add(HttpServletRequest request, HttpServletResponse response, 
-    		@RequestHeader(value="User-Agent", defaultValue="") String userAgent, 
-    		@CookieValue(value="JSESSIONID", defaultValue="") String jsessionId) {     
+    		@RequestHeader(value="User-Agent", defaultValue="") String userAgent){
+    		//@CookieValue(value="JSESSIONID", defaultValue="") String jsessionId) {     
     	
     	//测试cookie
     	Cookie[] cookies = request.getCookies();
@@ -75,13 +79,13 @@ public class UserController {
     	cookie1.setMaxAge(60*60*24*7);//7day
 		response.addCookie(cookie1);
 		
-		Cookie cookie2 = new Cookie("JSESSIONID", "JSESSIONID-value");
+		Cookie cookie2 = new Cookie("aaaaJSESSIONID", "JSESSIONID-value");
     	cookie2.setMaxAge(60*60*24*7);//7day
 		response.addCookie(cookie2);
 		//cookie测试结束
 		
 		System.out.println(userAgent);
-		System.out.println(jsessionId);
+		//System.out.println(jsessionId);
     	
     	//System.out.println(bb);
     	/*log4j测试
@@ -127,11 +131,69 @@ public class UserController {
     
     @RequestMapping(value = "/hello2")
     @ResponseBody
-    public String hello2(int iid, @ModelAttribute("user") User user){//getParameter()的方式  
-        System.out.println("hello action:"+iid);  
-
-        //return "redirect:/index.jsp";//不能重定向web-info里面的文件,而且需要写上绝对路径 
-        return "hello2";
+    public User hello2(HttpServletRequest request, @CookieValue(value="JSESSIONID", defaultValue="") String jsessionId){//getParameter()的方式  
+        //return "redirect:/index.jsp";
+        //return "hello2";
+    	request.getSession().removeAttribute("JSESSIONID");
+    	HttpSession session = request.getSession(true);
+    	System.out.println(jsessionId);
+        User user = new User();
+        user.setName("name");
+        user.setId(1);
+        user.setPassword("password");
+        return user;
+    }
+    
+    @RequestMapping("/session1")
+    @ResponseBody
+    public void testSession1(HttpServletRequest request,HttpServletResponse response) throws IOException{
+    	//模拟网站的业务页面，需要登录才可以访问   	
+    	
+    	String SESSIONID = null;
+    	if(request.getParameter("userName")!=null){
+    		Cookie[] cookies = request.getCookies();
+    		for (int i = 0; i < cookies.length; i++) {
+				if(cookies[i].getName().equals("SESSIONID")){
+					SESSIONID = cookies[i].getValue();
+					break;
+				}
+			}
+    	}
+    	HttpSession session = request.getSession(false);
+    	
+    	if (session != null && session.getAttribute("123") != null) {    		
+			User user = (User) session.getAttribute(SESSIONID);
+			System.out.println(user.getName());
+		}else{
+			String path = request.getContextPath();
+			response.sendRedirect(path + "/session2.do");
+		}
+    }
+    
+    @RequestMapping("/session2")
+    @ResponseBody
+    public String testSession2(HttpServletRequest request,HttpServletResponse response){
+    	//模拟网站的login页面
+    	Cookie cookie = new Cookie("SESSIONID", "123");
+    	cookie.setMaxAge(60*60*24*7);//7day
+		response.addCookie(cookie);
+    	
+    	HttpSession session = request.getSession(true);//没有Session就新建一个
+    	User user = new User();
+    	user.setId(1);
+    	user.setName("nameaaa");
+    	user.setPassword("password");
+    	session.setAttribute("123", user);
+    	
+    	return "session2";
+    }
+    
+    @RequestMapping("/session3")
+    @ResponseBody
+    public String testSession3(HttpServletRequest request){
+    	//模拟logout页面
+    	request.getSession().removeAttribute("123");
+    	return "test session success";
     }
     
       
