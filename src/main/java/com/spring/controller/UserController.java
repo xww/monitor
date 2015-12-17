@@ -199,6 +199,7 @@ public class UserController {
     @RequestMapping("/login")
     @ResponseBody
     public String login(HttpServletRequest request){
+    	System.out.println(request.getAttribute("xww"));
     	System.out.println("login");
     	return "login success!";
     }
