@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +23,23 @@ import com.spring.entity.*;
 import com.spring.service.*;
 import org.apache.log4j.Logger;
 
+class myUser{
+	String name;
+	int age;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}	
+}
   
  
 @Controller
@@ -44,19 +62,29 @@ public class UserController {
       
     //@RequestMapping(value = "/", method = RequestMethod.GET) 
     @RequestMapping("/index")
-    public ModelAndView Add(HttpServletRequest request, HttpServletResponse response) {     
+    public ModelAndView Add(HttpServletRequest request, HttpServletResponse response, 
+    		@RequestHeader(value="User-Agent", defaultValue="") String userAgent, 
+    		@CookieValue(value="JSESSIONID", defaultValue="") String jsessionId) {     
     	
     	//测试cookie
     	Cookie[] cookies = request.getCookies();
     	if (cookies !=null){
     		System.out.println(cookies.length);
     	}
-    	Cookie cookie = new Cookie("hitCounter", "11111111");
-    	cookie.setMaxAge(3601000);
-		response.addCookie(cookie);
+    	Cookie cookie1 = new Cookie("key1", "value1");
+    	cookie1.setMaxAge(60*60*24*7);//7day
+		response.addCookie(cookie1);
+		
+		Cookie cookie2 = new Cookie("JSESSIONID", "JSESSIONID-value");
+    	cookie2.setMaxAge(60*60*24*7);//7day
+		response.addCookie(cookie2);
 		//cookie测试结束
+		
+		System.out.println(userAgent);
+		System.out.println(jsessionId);
     	
     	//System.out.println(bb);
+    	/*log4j测试
     	logger1.debug("module1 debug");
 		logger1.info("module1 info");
 		logger1.error("module1 error");
@@ -67,22 +95,24 @@ public class UserController {
 		
 		loggermain.debug("main debug");
 		loggermain.info("main info");
-		loggermain.error("main error");
-		
-        //logger.info("get all user info ---->/n");  
-        List<User> users = userService.getUserList();  
-        //logger.info(users.toString());  
-        //model.addAttribute("users", users);
+		loggermain.error("main error");*/
+        
+        List<User> users = userService.getUserList();
         return new ModelAndView("index", "users", users);
-          
-        //return "showUsers";  
     }
     
     @RequestMapping("/index2")
-    public String Addaa(HttpServletRequest request,HttpServletResponse response, Model model2){
+    //public String Addaa(HttpServletRequest request,HttpServletResponse response, Model model2, myUser myuser){
+    //public String Addaa(HttpServletRequest request,HttpServletResponse response, Model model2, User user){
+    public String Addaa(HttpServletRequest request,HttpServletResponse response, Model model2, @ModelAttribute User user){
+    	//函数参数里面，用没用ModelAttribute都一样
     	//这个方法给前端传递参数和上面/index请求给前端传递参数的方式不一样最终结果是一样的
+    	//http://localhost:8080/springmvc-demo/home/index2.do?name=xww&age=22
+    	//http://localhost:8080/springmvc-demo/home/index2.do?name=xww&age=22&adress.street=aaa
     	List<User> users = userService.getUserList();
     	model2.addAttribute("users", users);
+    	
+    	//System.out.println(myuser.name);
     	return "index";
     }
     
