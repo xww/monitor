@@ -1,0 +1,128 @@
+echo "CREATE DATABASE monitor DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;" | mysql -uroot -pubuntu -S /var/run/mysqld/mysqld.sock
+
+CREATE TABLE `monitor`.`host` (
+`created_at` date,
+`updated_at` date,
+`deleted_at` date,
+`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`private_mac` varchar(20) NOT NULL,
+`host_name` varchar(20) NOT NULL,
+`sn` varchar(20),
+`project` varchar(20),
+`idc` varchar(20),
+`machine_type` varchar(20),
+`os_type` varchar(20),
+`deleted`  bool
+)engine=innodb default charset=utf8 auto_increment=1;
+
+CREATE TABLE `monitor`.`metadata` (
+`created_at` date,
+`updated_at` date,
+`deleted_at` date,
+`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`host_id` int(11),
+`key` varchar(20),
+`value` varchar(40),
+`deleted`  bool
+)engine=innodb default charset=utf8 auto_increment=1;
+
+CREATE TABLE `monitor`.`cpu` (
+`created_at` date,
+`updated_at` date,
+`deleted_at` date,
+`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`host_id` int(11),
+`cpu_util` tinyint,
+`deleted`  bool
+)engine=innodb default charset=utf8 auto_increment=1;
+
+CREATE TABLE `monitor`.`mem` (
+`created_at` date,
+`updated_at` date,
+`deleted_at` date,
+`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`host_id` int(11),
+`total` int,
+`used` int,
+`free` int,
+`mem_util` tinyint,
+`deleted`  bool
+)engine=innodb default charset=utf8 auto_increment=1;
+
+CREATE TABLE `monitor`.`disk` (
+`created_at` date,
+`updated_at` date,
+`deleted_at` date,
+`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`host_id` int(11),
+`read_iops` int,
+`write_iops` int,
+`read_rate` int,
+`write_rate` int,
+`deleted`  bool
+)engine=innodb default charset=utf8 auto_increment=1;
+
+CREATE TABLE `monitor`.`net` (
+`created_at` date,
+`updated_at` date,
+`deleted_at` date,
+`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`host_id` int(11),
+`rec_rate` int,
+`send_rate` int,
+`deleted`  bool
+)engine=innodb default charset=utf8 auto_increment=1;
+
+CREATE TABLE `monitor`.`alarm_rule` (
+`created_at` date,
+`updated_at` date,
+`deleted_at` date,
+`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`name` varchar(40),
+`type` varchar(20),
+`relation` tinyint,
+`threshold` tinyint,
+`alarm_level` tinyint,
+`deleted`  bool
+)engine=innodb default charset=utf8 auto_increment=1;
+
+
+CREATE TABLE `monitor`.`alarm_binding` (
+`created_at` date,
+`updated_at` date,
+`deleted_at` date,
+`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`alarm_rule_id` int(11),
+`notify_group_id` int(11),
+`deleted`  bool
+)engine=innodb default charset=utf8 auto_increment=1;
+
+CREATE TABLE `monitor`.`notify_group` (
+`created_at` date,
+`updated_at` date,
+`deleted_at` date,
+`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`name` varchar(20),
+`telephone` varchar(20),
+`email` varchar(30),
+`webhooks` varchar(50),
+`deleted`  bool
+)engine=innodb default charset=utf8 auto_increment=1;
+
+
+CREATE TABLE `monitor`.`alarm_list` (
+`created_at` date,
+`updated_at` date,
+`deleted_at` date,
+`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`host_id` int(11),
+`alarm_rule_id` int(11),
+`status` varchar(10),
+`oprator_ip` varchar(10),
+`deleted`  bool
+)engine=innodb default charset=utf8 auto_increment=1;
+
+
+
+
+
