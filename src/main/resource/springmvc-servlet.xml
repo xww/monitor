@@ -14,11 +14,21 @@
            http://www.springframework.org/schema/tx 
            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
            http://www.springframework.org/schema/context 
-           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">           
+     
 
-	 <mvc:annotation-driven/>	
-	 
-	 <context:component-scan base-package="com.spring.*" />	 
+	 <mvc:annotation-driven/>	 
+	 <context:component-scan base-package="com.spring.*" />
+	
+	<!--避免IE执行AJAX时，返回JSON出现下载文件 
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean> -->
 	 
 	 <!-- freemarker模版解析器
 	 <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">

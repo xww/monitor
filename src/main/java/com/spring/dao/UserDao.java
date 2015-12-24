@@ -17,7 +17,7 @@ import com.spring.entity.*;;
 public class UserDao {  
     class UserRowMapper implements RowMapper{  
         public Object mapRow(ResultSet rs,int index) throws SQLException        {  
-            User u = new User(rs.getString("name"), rs.getString("password"));  
+            User u = new User(rs.getString("user_name"), rs.getString("password"));  
             return u;  
         }  
     }  

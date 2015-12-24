@@ -2,18 +2,18 @@ package com.spring.entity;
 public class User{  
   
     private int id;  
-    private String name;  
-    private String password;
+    private String userName;
+	private String password;
     
     public User(){    	
     }
-    public User(String name, String password) {
-        this.name = name;  
+    public User(String userName, String password) {
+        this.userName = userName;  
         this.password = password;  
     } 
-    public User(int id, String name, String password) {
+    public User(int id, String userName, String password) {
     	this.id = id;
-        this.name = name;  
+        this.userName = userName;  
         this.password = password;  
     }
     public int getId() {  
@@ -22,12 +22,12 @@ public class User{
     public void setId(int id) {  
         this.id = id;  
     }  
-    public String getName() {  
-        return name;  
-    }  
-    public void setName(String name) {  
-        this.name = name;  
-    }  
+    public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
     public String getPassword() {  
         return password;  
     }  
@@ -37,7 +37,7 @@ public class User{
       
     @Override  
     public String toString() {  
-        return "User [id=" + id + ", name=" + name + ", password=" + password  
+        return "User [id=" + id + ", name=" + userName + ", password=" + password  
                 + "]";  
     }  
 }

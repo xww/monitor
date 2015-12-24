@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.stereotype.Service;
 
 import com.spring.dao.*;
@@ -14,21 +15,20 @@ import com.spring.entity.*;
 public class UserService {
 	
 	@Resource
-    private UserDao userDao;  
-      
-    /*public UserDao getUserDao() {  
-        return userDao;  
-    }  
-    //注入  
-    public void setUserDao(UserDao userDao) {  
-        this.userDao = userDao;  
-    } */ 
+    private UserDao userDao;
+	
+	@Resource
+	private UserDao_mybatis  userDao_mybatis;
+	
+	
   
-    /** 
-     * 查找所有的用户信息 
-     * @return 
-     */  
     public List<User> getUserList(){  
         return userDao.findAllUser();  
-    }  
+    }      
+    
+	
+	public User getUserById(int userId) {
+		// TODO Auto-generated method stub
+		return this.userDao_mybatis.selectByPrimaryKey(userId);
+	}
 }

@@ -138,7 +138,7 @@ public class UserController {
     	HttpSession session = request.getSession(true);
     	System.out.println(jsessionId);
         User user = new User();
-        user.setName("name");
+        user.setUserName("name");
         user.setId(1);
         user.setPassword("password");
         return user;
@@ -163,7 +163,7 @@ public class UserController {
     	
     	if (session != null && session.getAttribute("123") != null) {    		
 			User user = (User) session.getAttribute(SESSIONID);
-			System.out.println(user.getName());
+			System.out.println(user.getUserName());
 		}else{
 			String path = request.getContextPath();
 			response.sendRedirect(path + "/session2.do");
@@ -181,7 +181,7 @@ public class UserController {
     	HttpSession session = request.getSession(true);//没有Session就新建一个
     	User user = new User();
     	user.setId(1);
-    	user.setName("nameaaa");
+    	user.setUserName("nameaaa");
     	user.setPassword("password");
     	session.setAttribute("123", user);
     	
@@ -202,6 +202,13 @@ public class UserController {
     	System.out.println(request.getAttribute("xww"));
     	System.out.println("login");
     	return "login success!";
+    }
+    
+    @RequestMapping("/ibatis")
+    @ResponseBody
+    public User testIbatis(HttpServletRequest request){
+    	User user = userService.getUserById(123);
+    	return user;
     }
     
     

@@ -23,7 +23,7 @@
 	<context:property-placeholder location="classpath*:jdbc.properties" />
 	<context:property-placeholder location="classpath*:log4j.properties" />
 
-	<!-- 数据库连接 -->
+	<!-- jdbc数据库参数 -->
 	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
 		<property name="alias">
 			<value>proxoolds</value>
@@ -55,8 +55,25 @@
 		<property name="maximumActiveTime" value="1800000" />
 		<property name="simultaneousBuildThrottle" value="100" />
 	</bean>
+	
+	<!-- 这里配置jdbctemplate，只是本项目没用到，先放这里再说 -->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- spring和MyBatis整合，不需要mybatis的配置映射文件 -->  
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource" />  
+        <!-- 自动扫描mapping.xml文件 -->  
+        <!-- <property name="mapperLocations" value="classpath:com/cn/hnust/mapping/*.xml"></property>   -->
+        <property name="mapperLocations" value="classpath*:mybatis/*.xml"></property>
+    </bean>  
+    
+
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.spring.dao.*" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
 
 	<!-- 事务管理 -->
@@ -65,6 +82,10 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	
+
+	
 	
 	
 </beans>
