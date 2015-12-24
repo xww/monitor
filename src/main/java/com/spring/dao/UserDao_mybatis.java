@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.entity.User;
 
+
 @Repository
 public class UserDao_mybatis extends BaseDao {
 	
@@ -47,8 +48,7 @@ public class UserDao_mybatis extends BaseDao {
     }
 
     public int insertSelective(User record){
-		return 0;
-    	
+		return 0;    	
     }
 
 }
