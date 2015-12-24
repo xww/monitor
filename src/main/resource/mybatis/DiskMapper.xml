@@ -7,21 +7,30 @@
     <result column="read_iops" property="readIops" jdbcType="INTEGER" />
     <result column="write_iops" property="writeIops" jdbcType="INTEGER" />
     <result column="read_rate_mbytes" property="readRateMbytes" jdbcType="INTEGER" />
-    <result column="write_rate_mbytes" property="WriteRateMbytes" jdbcType="INTEGER" />    
+    <result column="write_rate_mbytes" property="writeRateMbytes" jdbcType="INTEGER" />
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
     <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />   
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, host_id, read_iops, write_iops, read_rate_mbytes, 
-    write_rate_mbytes, created_at, updated_at
+    id, host_id, read_iops, write_iops, read_rate_mbytes, write_rate_mbytes, created_at, updated_at
   </sql>
   
-  <select id="getDiskInfoById" resultMap="BaseResultMap" parameterType="int" >
+  <select id="getDiskSampleById" resultMap="BaseResultMap" parameterType="int" >
     select 
     <include refid="Base_Column_List" />
-    from cpu
+    from disk
     where id = #{id,jdbcType=INTEGER}; 
   </select>
+  
+  <select id="getDsikSampleByTimeScope" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from disk
+    where unix_timestamp(created_at) &gt;= unix_timestamp(#{start,jdbcType=VARCHAR}) and 
+    unix_timestamp(created_at) &lt;= unix_timestamp(#{end,jdbcType=VARCHAR}); 
+  </select>
+  
+  
   
 </mapper>

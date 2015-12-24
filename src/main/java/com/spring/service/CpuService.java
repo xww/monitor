@@ -27,5 +27,11 @@ public class CpuService {
 		return this.cpuDao.getCpuSampleById(id);
 	}
 	
+	public List<Cpu> getCpuSampleByTimeScope(String start, String end){
+		
+		return this.cpuDao.getCpuSampleByTimeScope(start, end);
+		
+	}
+	
 	
 }

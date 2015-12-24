@@ -13,7 +13,7 @@
     select 
     <include refid="Base_Column_List" />
     from user
-    where id = #{id,jdbcType=INTEGER}Timestamp d = new Timestamp(System.currentTimeMillis()); 
+    where id = #{id,jdbcType=INTEGER}; 
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user

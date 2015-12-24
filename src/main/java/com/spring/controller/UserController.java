@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,6 +55,7 @@ public class UserController {
     static Logger logger1 = Logger.getLogger("module1");
 	static Logger logger2 = Logger.getLogger("module2");
 	static Logger loggermain = Logger.getLogger(UserController.class.getName());
+
   
     @Resource
     private UserService userService; 
@@ -214,11 +216,12 @@ public class UserController {
     	return user;
     }
     
-    @RequestMapping("/cpu")
+    @RequestMapping("/cpu/{id}")
     @ResponseBody
-    public Cpu getCpu(HttpServletRequest request){
-    	Cpu cpu = cpuService.getCpuSampleById(12);
-    	return cpu;
+    public List<Cpu> getCpu(@PathVariable int id, @RequestParam String start ,@RequestParam  String end){
+    	//Cpu cpu = cpuService.getCpuSampleById(12);
+    	List<Cpu> cpuList = cpuService.getCpuSampleByTimeScope(start, end);
+    	return cpuList;
     }
     
       

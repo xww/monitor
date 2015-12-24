@@ -22,6 +22,8 @@
 
 	<context:property-placeholder location="classpath*:jdbc.properties" />
 	<context:property-placeholder location="classpath*:log4j.properties" />
+	<context:property-placeholder location="classpath*:mybatis_config.xml" />
+	
 
 	<!-- jdbc数据库参数 -->
 	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">

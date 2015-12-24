@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.spring.dao.CpuDao" >
-  <resultMap id="BaseResultMap" type="com.spring.entity.Cpu" >
+<mapper namespace="com.spring.dao.HostDao" >
+  <resultMap id="BaseResultMap" type="com.spring.entity.Host" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="host_id" property="hostId" jdbcType="INTEGER" />
-    <result column="cpu_util" property="cpuUtil" jdbcType="VARCHAR" />
+    <result column="private_mac" property="privateMac" jdbcType="VARCHAR" />
+    <result column="host_name" property="hostName" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="project" property="project" jdbcType="VARCHAR" />
+    <result column="idc" property="idc" jdbcType="VARCHAR" />
+    <result column="machine_type" property="machineType" jdbcType="VARCHAR" />
+    <result column="os_type" property="osType" jdbcType="VARCHAR" />
+    <result column="alive" property="alive" jdbcType="INTEGER" />
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
     <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />   
   </resultMap>

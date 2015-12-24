@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BaseDao extends SqlSessionDaoSupport {
 	@Autowired     
     public void setSuperSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {  
+		
         super.setSqlSessionFactory(sqlSessionFactory);  
     }
 
