@@ -1,6 +1,8 @@
 package com.spring.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,7 +50,6 @@ class myUser{
   
  
 @Controller
-@RequestMapping("/home")
 public class UserController {  
       
     
@@ -58,10 +59,7 @@ public class UserController {
 
   
     @Resource
-    private UserService userService; 
-    
-    @Resource
-    private CpuService cpuService;
+    private UserService userService;
     
     @ModelAttribute
     public void preRun() {
@@ -106,8 +104,12 @@ public class UserController {
 		loggermain.info("main info");
 		loggermain.error("main error");*/
         
-        List<User> users = userService.getUserList();
-        return new ModelAndView("index", "users", users);
+        //List<User> users = userService.getUserList();
+		myUser user = new myUser();
+		user.setAge(11);user.setName("xww");
+		
+		
+        return new ModelAndView("index", "user", user);
     }
     
     @RequestMapping("/index2")
@@ -209,20 +211,7 @@ public class UserController {
     	return "login success!";
     }
     
-    @RequestMapping("/ibatis")
-    @ResponseBody
-    public User testIbatis(HttpServletRequest request){
-    	User user = userService.getUserById(123);
-    	return user;
-    }
     
-    @RequestMapping("/cpu/{id}")
-    @ResponseBody
-    public List<Cpu> getCpu(@PathVariable int id, @RequestParam String start ,@RequestParam  String end){
-    	//Cpu cpu = cpuService.getCpuSampleById(12);
-    	List<Cpu> cpuList = cpuService.getCpuSampleByTimeScope(start, end);
-    	return cpuList;
-    }
     
       
 }
