@@ -1,12 +1,10 @@
 package com.spring.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,35 +16,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.entity.*;
 import com.spring.service.*;
 import org.apache.log4j.Logger;
-import org.aspectj.weaver.ast.And;
+import org.omg.CORBA.CTX_RESTRICT_SCOPE;
 
-class myUser{
-	String name;
-	int age;
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}	
-}
+
   
  
 @Controller
@@ -105,8 +85,14 @@ public class UserController {
 		loggermain.error("main error");*/
         
         //List<User> users = userService.getUserList();
-		myUser user = new myUser();
-		user.setAge(11);user.setName("xww");
+		User user = new User();
+		user.setPassword("password");
+		user.setUserName("aaauserName");
+		
+		request.setAttribute("user", user);
+		
+		ServletContext ctx = request.getSession().getServletContext();
+		System.out.println("numSessions is : "+ctx.getAttribute("numSessions"));
 		
 		
         return new ModelAndView("index", "user", user);
@@ -154,7 +140,8 @@ public class UserController {
     @RequestMapping("/session1")
     @ResponseBody
     public void testSession1(HttpServletRequest request,HttpServletResponse response) throws IOException{
-    	//模拟网站的业务页面，需要登录才可以访问   	
+    	//模拟网站的业务页面，需要登录才可以访问  
+    	
     	
     	String SESSIONID = null;
     	if(request.getParameter("userName")!=null){
@@ -179,8 +166,8 @@ public class UserController {
     
     @RequestMapping("/session2")
     @ResponseBody
-    public String testSession2(HttpServletRequest request,HttpServletResponse response){
-    	//模拟网站的login页面
+    public String testSession2(HttpServletRequest request,HttpSession session){
+    	/*//模拟网站的login页面
     	Cookie cookie = new Cookie("SESSIONID", "123");
     	cookie.setMaxAge(60*60*24*1);//1day
 		response.addCookie(cookie);
@@ -190,26 +177,26 @@ public class UserController {
     	user.setId(1);
     	user.setUserName("nameaaa");
     	user.setPassword("password");
-    	session.setAttribute("123", user);
+    	session.setAttribute("123", user);*/
+    	User u = (User) session.getAttribute("user");
+    	System.out.println(u.toString());
     	
     	return "session2";
     }
     
     @RequestMapping("/session3")
     @ResponseBody
-    public String testSession3(HttpServletRequest request){
+    public String testSession3(HttpServletRequest request,HttpSession session){
     	//模拟logout页面
     	request.getSession().removeAttribute("123");
+    	//String aa =  (String) request.getAttribute("user");
+    	//System.out.println(aa.toString());
+    	User a = (User) session.getAttribute("user");
+    	System.out.println(a.toString());
     	return "test session success";
     }
     
-    @RequestMapping("/login")
-    @ResponseBody
-    public String login(HttpServletRequest request){
-    	System.out.println(request.getAttribute("xww"));
-    	System.out.println("login");
-    	return "login success!";
-    }
+    
     
     
     

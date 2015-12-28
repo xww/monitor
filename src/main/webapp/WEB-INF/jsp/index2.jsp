@@ -33,15 +33,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   Date date = new Date();
   SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
   String today = sf.format(date);
+  User u = (User)request.getAttribute("user");
   %>
   当前时间是： <%=today %>
+  当前用户aaaa是： <%=u.toString() %>
   
-  <%User u = new User();
-  u.setId(111);u.setPassword("mypass");u.setUserName("xww");
-  request.setAttribute("user", u);
-  session.setAttribute("user", u);
-  response.sendRedirect("/monitor/session3.do");
-  %>
   
   
   
