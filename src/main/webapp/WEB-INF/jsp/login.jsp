@@ -1,10 +1,10 @@
+<%@page import="java.text.SimpleDateFormat"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat"  %>
 <%@ page import="com.spring.entity.*"  %>
-<%@page import="java.text.SimpleDateFormat"%>
     
 <%
 String path = request.getContextPath();
@@ -54,7 +54,6 @@ alert("onclick");
   session.setAttribute("user", u);
   //response.sendRedirect("/monitor/session3.do");url会跟着变，forward url不会变
   String log4jRefreshInterval = application.getInitParameter("log4jRefreshInterval");
-  User aa = (User)request.getAttribute("usermodel");
   %>  
   log4jRefreshInterval： <%=log4jRefreshInterval %>
   
@@ -63,17 +62,14 @@ alert("onclick");
 <button id="btn4">ee</button>
 
 pass: ${usermodel.password}
-useraa: ${aa.password}
 
-<form action="login.do" method="post">  
-          用户名:<input type="text" name="userName">  
+<form action="login.spring" method="post">  
+    username:<input type="text" name="username">  
     <br/>  
     password:<input type="text" name="password">  
     <br/>  
     <input type="submit" value="登录">  
 </form> 
-
-<c:out value="aaaaaaaaaaajstl--jstl--jstl"></c:out>
   
   
   <div class="container">

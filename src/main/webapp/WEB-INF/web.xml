@@ -10,10 +10,10 @@
          org.springframework.web.util.Log4jConfigListener 
       </listener-class>
   </listener>
-  <listener>
-      <!-- 监听session数量统计在线人数，不会很准确，例如某人打开两个浏览器等情况 -->
+  <!-- listener>
+      
       <listener-class>com.spring.common.listen.SessionCounter</listener-class>
-  </listener>
+  </listener> -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath*:applicationContext*.xml</param-value>

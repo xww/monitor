@@ -1,9 +1,12 @@
 package com.spring.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.jws.WebParam.Mode;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +17,12 @@ import javax.servlet.http.HttpSession;
 //import org.slf4j.LoggerFactory;  
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,9 +53,10 @@ public class UserController {
     }
       
     //@RequestMapping(value = "/", method = RequestMethod.GET) 
-    @RequestMapping("/index")
-    public ModelAndView Add(HttpServletRequest request, HttpServletResponse response, 
-    		@RequestHeader(value="User-Agent", defaultValue="") String userAgent){
+    @SuppressWarnings("deprecation")
+	@RequestMapping("/index")
+    public  String Add(HttpServletRequest request, HttpServletResponse response, 
+    		@RequestHeader(value="User-Agent", defaultValue="") String userAgent,ModelMap model){
     		//@CookieValue(value="JSESSIONID", defaultValue="") String jsessionId) {     
     	System.out.println(request.getAttribute("xww"));//拦截器塞进去的属性
     	//测试cookie
@@ -86,16 +92,43 @@ public class UserController {
         
         //List<User> users = userService.getUserList();
 		User user = new User();
-		user.setPassword("password");
+		user.setPassword("passwordxww2");
 		user.setUserName("aaauserName");
 		
 		request.setAttribute("user", user);
 		
 		ServletContext ctx = request.getSession().getServletContext();
-		System.out.println("numSessions is : "+ctx.getAttribute("numSessions"));
+		System.out.println("sessionCounts is : "+ctx.getAttribute("sessionCounts"));
+		
+		/*System.out.println("log4jRefreshInterval: " + request.getServletContext().getInitParameter("log4jRefreshInterval"));
+		System.out.println("log4jRefreshInterval2: " + request.getSession().getServletContext().getInitParameter("log4jRefreshInterval"));
+		System.out.println("contextPath is: " + request.getContextPath());
+		System.out.println("pathInfo is: " + request.getPathInfo());
+		System.out.println("servletPath is: " + request.getServletPath());
+		System.out.println("requestUrl is: " + request.getRequestURL());
+		System.out.println("realPath is: " + request.getSession().getServletContext().getRealPath("index")); 
+		System.out.println("realPath2 is: " + request.getRealPath("index"));*/ 
 		
 		
-        return new ModelAndView("index", "user", user);
+		
+        //返回方式1
+		//return new ModelAndView("index", "useraa", user);
+		
+		//返回方式2
+		//map必须在函数参数内部声明,如:Map< String, User> map
+		//map.put("usermap", user);
+		//return "index";
+		
+		//返回方式3
+		model.addAttribute("usermodel", user);
+		return "index";
+		
+		//返回方式4
+		//返回方式5
+		//返回方式6
+		//返回方式7
+		
+		
     }
     
     @RequestMapping("/index2")
@@ -186,19 +219,33 @@ public class UserController {
     
     @RequestMapping("/session3")
     @ResponseBody
-    public String testSession3(HttpServletRequest request,HttpSession session){
-    	//模拟logout页面
+    public ModelAndView testSession3(HttpServletRequest request,HttpSession session){
+    	/*//模拟logout页面
     	request.getSession().removeAttribute("123");
     	//String aa =  (String) request.getAttribute("user");
     	//System.out.println(aa.toString());
     	User a = (User) session.getAttribute("user");
     	System.out.println(a.toString());
-    	return "test session success";
+    	return "test session success";*/
+    	return new ModelAndView("index2", "user", "user");
+    	
     }
     
-    
-    
-    
+    @RequestMapping(value="/login",method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView login(HttpServletRequest request,HttpSession session, User userjsp){
+    	/*//模拟logout页面
+    	request.getSession().removeAttribute("123");
+    	//String aa =  (String) request.getAttribute("user");
+    	//System.out.println(aa.toString());
+    	User a = (User) session.getAttribute("user");
+    	System.out.println(a.toString());
+    	return "test session success";*/
+    	User user = userjsp;
+    	System.out.println(user.toString());
+    	return new ModelAndView("index2", "user", "user");
+    	
+    }
     
       
 }
