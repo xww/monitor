@@ -174,8 +174,6 @@ public class UserController {
     @ResponseBody
     public void testSession1(HttpServletRequest request,HttpServletResponse response) throws IOException{
     	//模拟网站的业务页面，需要登录才可以访问  
-    	
-    	
     	String SESSIONID = null;
     	if(request.getParameter("userName")!=null){
     		Cookie[] cookies = request.getCookies();
@@ -227,13 +225,15 @@ public class UserController {
     	User a = (User) session.getAttribute("user");
     	System.out.println(a.toString());
     	return "test session success";*/
+    	String username = (String) request.getSession().getAttribute("userName");
+    	System.out.println(username);
     	return new ModelAndView("index2", "user", "user");
     	
     }
     
     @RequestMapping(value="/login",method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView login(HttpServletRequest request,HttpSession session, User userjsp){
+    public void login(HttpServletRequest request,HttpServletResponse response, HttpSession session, String userName, String password) throws IOException{
     	/*//模拟logout页面
     	request.getSession().removeAttribute("123");
     	//String aa =  (String) request.getAttribute("user");
@@ -241,8 +241,26 @@ public class UserController {
     	User a = (User) session.getAttribute("user");
     	System.out.println(a.toString());
     	return "test session success";*/
-    	User user = userjsp;
-    	System.out.println(user.toString());
+    	
+		request.getSession(true).setAttribute("userName", userName);
+    	System.out.println("login success!");
+    	
+    	response.sendRedirect(request.getContextPath() + "/home.do");
+    	
+    }
+    
+    @RequestMapping(value="/home",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView listHost(HttpServletRequest request,HttpSession session){
+    	/*//模拟logout页面
+    	request.getSession().removeAttribute("123");
+    	//String aa =  (String) request.getAttribute("user");
+    	//System.out.println(aa.toString());
+    	User a = (User) session.getAttribute("user");
+    	System.out.println(a.toString());
+    	return "test session success";*/
+    	System.out.println("in home!");    	
+    	
     	return new ModelAndView("index2", "user", "user");
     	
     }

@@ -24,11 +24,39 @@ public class LoginCheck implements HandlerInterceptor{
 	}
 
 	@Override
-	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object arg2) throws Exception {
-		System.out.println("in  spring interceptor");
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse res, Object arg2) throws Exception {		
+		/*if(request.getServletPath().startsWith("/login.do")) {
+			String userName = request.getParameter("userName");
+			if(userName != null){
+				request.getSession(true).setAttribute("userName", userName);				
+				return true;
+			}else{
+				res.sendRedirect(request.getContextPath());
+				return false;
+			}
+	        
+	    }else{			
+	    	if (request.getSession().getAttribute("userName") != null) {
+				return true;
+			}else{
+				res.sendRedirect(request.getContextPath());
+				return false;
+			}	    	
+		}*/
 		
+		if(request.getServletPath().startsWith("/login.do")){
+			return true;
+		}
 		
-		return true; 
+		if(request.getSession().getAttribute("userName") != null){			
+			return true;
+		}else{
+			//String userName = request.getParameter("userName");
+			//request.getSession(true).setAttribute("userName", userName);
+			res.sendRedirect(request.getContextPath());
+			return false;
+		}
+		
 	}
 
 }

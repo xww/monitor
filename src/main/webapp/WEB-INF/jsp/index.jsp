@@ -49,7 +49,8 @@ alert("onclick");
   当前时间是： <%=today %>
   
   <%User u = new User();
-  u.setId(111);u.setPassword("mypass");u.setUserName("xww");
+  //u.setId(111);u.setPassword("mypass");u.setUserName("xww");
+  
   request.setAttribute("user", u);
   session.setAttribute("user", u);
   //response.sendRedirect("/monitor/session3.do");url会跟着变，forward url不会变
