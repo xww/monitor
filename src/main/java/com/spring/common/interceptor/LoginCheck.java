@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.aspectj.weaver.patterns.IfPointcut.IfFalsePointcut;
+import org.springframework.instrument.classloading.tomcat.TomcatLoadTimeWeaver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,7 +50,9 @@ public class LoginCheck implements HandlerInterceptor{
 			return true;
 		}
 		
-		if(request.getSession().getAttribute("userName") != null){			
+		//if(request.getSession().getAttribute("userName") != null){
+		HttpSession session = request.getSession(false);
+		if(session != null){ 
 			return true;
 		}else{
 			//String userName = request.getParameter("userName");

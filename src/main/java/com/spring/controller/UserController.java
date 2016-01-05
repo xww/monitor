@@ -1,12 +1,8 @@
 package com.spring.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
-import javax.jws.WebParam.Mode;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -26,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.entity.*;
+import com.spring.entity.User;
 import com.spring.service.*;
+
 import org.apache.log4j.Logger;
-import org.omg.CORBA.CTX_RESTRICT_SCOPE;
 
 
   
@@ -45,6 +41,8 @@ public class UserController {
   
     @Resource
     private UserService userService;
+    
+    
     
     @ModelAttribute
     public void preRun() {
@@ -227,25 +225,16 @@ public class UserController {
     	return "test session success";*/
     	String username = (String) request.getSession().getAttribute("userName");
     	System.out.println(username);
-    	return new ModelAndView("index2", "user", "user");
+    	return new ModelAndView("index", "user", "user");
     	
     }
     
     @RequestMapping(value="/login",method = RequestMethod.POST)
     @ResponseBody
-    public void login(HttpServletRequest request,HttpServletResponse response, HttpSession session, String userName, String password) throws IOException{
-    	/*//模拟logout页面
-    	request.getSession().removeAttribute("123");
-    	//String aa =  (String) request.getAttribute("user");
-    	//System.out.println(aa.toString());
-    	User a = (User) session.getAttribute("user");
-    	System.out.println(a.toString());
-    	return "test session success";*/
-    	
-		request.getSession(true).setAttribute("userName", userName);
-    	System.out.println("login success!");
-    	
-    	response.sendRedirect(request.getContextPath() + "/home.do");
+    public void login(HttpServletRequest request,HttpServletResponse response,  String userName, String password) throws IOException{    	
+		request.getSession(true);//tomcat会自动创建jsessionid
+    	System.out.println("login success!");    	
+    	response.sendRedirect(request.getContextPath() + "/hosts.do");
     	
     }
     
@@ -261,9 +250,11 @@ public class UserController {
     	return "test session success";*/
     	System.out.println("in home!");    	
     	
-    	return new ModelAndView("index2", "user", "user");
+    	return new ModelAndView("home2", "user", "user");
     	
     }
+    
+    
     
       
 }
