@@ -24,6 +24,10 @@ public class HostService {
 		return this.hostDao.getHostById(id);
 	}
 	
+	public List<Host> getAllHosts(){
+		return  this.hostDao.getAllHosts();
+	}
+	
 	
 	
 }

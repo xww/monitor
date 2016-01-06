@@ -20,6 +20,11 @@ public class HostDao extends BaseDao {
     	return host;    	
     }
     
+    public List<Host> getAllHosts(){
+    	List<Host> hosts = getSqlSession().selectList("getAllHosts");
+    	return hosts;
+    }
+    
     
 
 }
