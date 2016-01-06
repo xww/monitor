@@ -25,7 +25,7 @@ public class HostController {
     @ResponseBody
     public Host getHost(@PathVariable int id){
     	
-    	Host host = hostService.getHostSampleById(id);
+    	Host host = hostService.getHostById(id);
     	return host;
     }
 	

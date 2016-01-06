@@ -20,12 +20,10 @@ public class HostService {
 	private HostDao hostDao;
 	
 	
-	public Host getHostSampleById(int id) {
-		return this.hostDao.getHostSampleById(id);
+	public Host getHostById(int id) {
+		return this.hostDao.getHostById(id);
 	}
 	
-	public List<Host> getHostSampleByTimeScope(String start, String end){		
-		return this.hostDao.getHostSampleByTimeScope(start, end);		
-	}
+	
 	
 }

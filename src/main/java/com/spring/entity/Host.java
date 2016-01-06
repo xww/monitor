@@ -6,7 +6,7 @@ import java.util.List;
 public class Host {
 	private int id;
 	private int privateMac;
-	private int hostName;
+	private String hostName;
 	private int sn;
 	private int project;
 	private int idc;
@@ -34,11 +34,11 @@ public class Host {
 		this.privateMac = privateMac;
 	}
 
-	public int getHostName() {
+	public String getHostName() {
 		return hostName;
 	}
 
-	public void setHostName(int hostName) {
+	public void setHostName(String hostName) {
 		this.hostName = hostName;
 	}
 

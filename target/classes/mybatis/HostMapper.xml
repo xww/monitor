@@ -33,8 +33,7 @@
   </sql>
   
   <select id="getHostById" resultMap="HostResultMap" parameterType="int" >
-    select 
-    <include refid="Host_Column_List" />,m.key,m.value
+    select <include refid="Host_Column_List" />,m.key,m.value
     from host as h left join metadata m
     on h.id=m.host_id where h.id = #{id,jdbcType=INTEGER}; 
   </select>
