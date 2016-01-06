@@ -34,11 +34,19 @@ import org.apache.log4j.Logger;
 public class CommonReq { 
     
     
-    @RequestMapping(value="/login2",method = RequestMethod.POST)
-    @ResponseBody
-    public void login(HttpServletRequest request,HttpServletResponse response,  String userName, String password) throws IOException{    	
-		request.getSession(true);//tomcat会自动创建jsessionid
+    @RequestMapping(value="/login",method = RequestMethod.POST)    
+    public void login(HttpServletRequest request,HttpServletResponse response,  String userName) throws IOException{    	
+		HttpSession session = request.getSession(true);//tomcat会自动创建jsessionid
+		session.setAttribute("user_name", userName);		
     	System.out.println("login success!");    	
     	response.sendRedirect(request.getContextPath() + "/hosts.do");    	
+    }
+    
+    @RequestMapping(value="/logout",method = RequestMethod.GET)    
+    public void logout(HttpServletRequest request,HttpServletResponse response,  String userName) throws IOException{    	
+		HttpSession session = request.getSession(false);
+		session.invalidate();		
+    	System.out.println("logout success!");
+    	response.sendRedirect(request.getContextPath());
     }
 }

@@ -47,6 +47,9 @@ public class LoginCheck implements HandlerInterceptor{
 		if(request.getServletPath().startsWith("/login.do")){
 			return true;
 		}
+		if(request.getServletPath().startsWith("/logout.do")){
+			return true;
+		}
 		
 		//if(request.getSession().getAttribute("userName") != null){
 		HttpSession session = request.getSession(false);

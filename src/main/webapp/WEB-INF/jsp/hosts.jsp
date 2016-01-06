@@ -1,8 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat"  %>
+<%@ page import="com.spring.entity.*"  %>
+<%@page import="java.text.SimpleDateFormat"%>
+
+<%String user_name = (String)session.getAttribute("user_name");
+%>
+
+
 <!DOCTYPE html>
 <html class="no-js">
     
     <head>
-        <title>Admin Home Page</title>
+        <title>主机列表-监控平台</title>
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
@@ -16,6 +28,7 @@
     </head>
     
     <body>
+    
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
@@ -23,24 +36,29 @@
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">Admin Panel</a>
+                    <!-- a class="brand" href="#">Admin Panel</a>-->
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right">
                             <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
+                                <%if(session.getAttribute("user_name") != null){%>
+                                    <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> <%=session.getAttribute("user_name") %> <i class="caret"></i>
+                                <%}else{%>
+                                    <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> 请登录 <i class="caret"></i>
+                                <%} %>    
 
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li>
+                                    <!-- <li>
                                         <a tabindex="-1" href="#">Profile</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a tabindex="-1" href="login.html">Logout</a>
+                                    </li> 
+                                    <li class="divider"></li>-->
+                                    <li id="logout">
+                                        <a tabindex="-1" href="logout.do">Logout</a>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
+                        <!-- 
                         <ul class="nav">
                             <li class="active">
                                 <a href="#">Dashboard</a>
@@ -120,7 +138,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                     <!--/.nav-collapse -->
                 </div>
