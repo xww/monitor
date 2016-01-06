@@ -30,7 +30,7 @@
     </select>
     
     <!-- 另一种联合查询  (一对一)的实现，但是这种方式有“N+1”的问题 -->
-   <!--  <resultMap id="articleResultMap" type="Article">
+   <resultMap id="articleResultMap" type="Article">
         <id property="id" column="article_id" />
         <result property="title" column="article_title" />
         <result property="content" column="article_content" />
@@ -39,6 +39,6 @@
     
     <select id="selectUser" parameterType="int" resultType="User">
         select * from user where id = #{id}
-	</select> -->
+	</select> 
     
 </mapper>

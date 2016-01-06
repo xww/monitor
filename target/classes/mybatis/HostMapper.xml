@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.spring.dao.HostDao" >
-  <resultMap id="BaseResultMap" type="com.spring.entity.Host" >
+
+  <resultMap id="MetadataResultMap" type="com.spring.entity.Metadata" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="host_id" property="hostId" jdbcType="INTEGER" />
+    <result column="key" property="key" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />   
+  </resultMap>
+
+  <resultMap id="HostResultMap" type="com.spring.entity.Host" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="private_mac" property="privateMac" jdbcType="VARCHAR" />
     <result column="host_name" property="hostName" jdbcType="VARCHAR" />
@@ -12,28 +22,21 @@
     <result column="os_type" property="osType" jdbcType="VARCHAR" />
     <result column="alive" property="alive" jdbcType="INTEGER" />
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
-    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />   
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />  
+    <collection property="metadatas" ofType="com.spring.entity.Metadata" resultMap="MetadataResultMap"/> 
   </resultMap>
   
-  <sql id="Base_Column_List" >
-    id, host_id, cpu_util,created_at,updated_at
+  
+  
+  <sql id="Host_Column_List" >
+    private_mac,host_name,sn,project,idc,machine_type,os_type,alive
   </sql>
   
-  <select id="getCpuSampleById" resultMap="BaseResultMap" parameterType="int" >
+  <select id="getHostById" resultMap="HostResultMap" parameterType="int" >
     select 
-    <include refid="Base_Column_List" />
-    from cpu
-    where id = #{id,jdbcType=INTEGER}; 
+    <include refid="Host_Column_List" />,m.key,m.value
+    from host as h left join metadata m
+    on h.id=m.host_id where h.id = #{id,jdbcType=INTEGER}; 
   </select>
-  
-  <select id="getCpuSampleByTimeScope" resultMap="BaseResultMap" parameterType="java.util.Map" >
-    select 
-    <include refid="Base_Column_List" />
-    from cpu
-    where unix_timestamp(created_at) &gt;= unix_timestamp(#{start,jdbcType=VARCHAR}) and 
-    unix_timestamp(created_at) &lt;= unix_timestamp(#{end,jdbcType=VARCHAR}); 
-  </select>
-  
-  
   
 </mapper>

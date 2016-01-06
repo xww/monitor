@@ -10,19 +10,19 @@
     </select>
     
     <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
-    <!-- <resultMap type="User" id="userResultMap">
+    <resultMap type="User" id="userResultMap">
         <id property="id" column="user_id"  />
         <result property="userName" column="user_userName"  />
         <result property="userAge" column="user_userAge"  />
         <result property="userAddress" column="user_userAddress"  />
-    </resultMap> -->
+    </resultMap> 
     
     <!-- 返回list的select语句，注意 resultMap的值是指向前面定义好的 -->
-    <!-- <select id="selectUsersByName" parameterType="string" resultMap="userResultMap">
+    <select id="selectUsersByName" parameterType="string" resultMap="userResultMap">
         select * from user where user.userName = #{userName}
-    </select> -->
+    </select>
     
-    <select id="selectUsersByName" parameterType="string" resultType="User">
+    <select id="selectUsersByName2" parameterType="string" resultType="User">
         select * from user where user.userName = #{userName}
     </select>
     

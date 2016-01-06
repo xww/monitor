@@ -48,7 +48,7 @@ public class Test {
 		try {
 			IUserOperation userOperation = session
 					.getMapper(IUserOperation.class);
-			List<User> users = userOperation.selectUsersByName(userName);
+			List<User> users = userOperation.selectUsersByName2(userName);
 			for (User user : users) {
 				System.out.println(user.getId() + ":" + user.getUserName()
 						+ ":" + user.getUserAddress());
@@ -156,8 +156,8 @@ public class Test {
 	public static void main(String[] args) {
 		try {
 			Test test = new Test();
-			// test.getUserByID(1);
-			// test.getUserList("test1");
+			 //test.getUserByID(1);			 
+			 //test.getUserList("test1");
 			// test.addUser();
 			// test.updateUser();
 			// test.deleteUser(6);
