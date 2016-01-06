@@ -234,7 +234,7 @@ public class UserController {
     public void login(HttpServletRequest request,HttpServletResponse response,  String userName, String password) throws IOException{    	
 		request.getSession(true);//tomcat会自动创建jsessionid
     	System.out.println("login success!");    	
-    	response.sendRedirect(request.getContextPath() + "/hosts.do");
+    	response.sendRedirect(request.getContextPath() + "/home.do");
     	
     }
     

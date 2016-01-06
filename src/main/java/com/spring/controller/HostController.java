@@ -28,7 +28,4 @@ public class HostController {
     	Host host = hostService.getHostById(id);
     	return host;
     }
-	
-	
-
 }

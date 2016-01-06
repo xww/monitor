@@ -41,6 +41,7 @@ public class MD5 {
 		// TODO Auto-generated method stub
 		System.out.println(transMD5("admin"));
 		System.out.println(transMD5("123456"));
+		System.out.println(transMD5("1"));
 	}
 }
 
