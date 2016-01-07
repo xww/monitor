@@ -49,4 +49,5 @@ public class CommonReq {
     	System.out.println("logout success!");
     	response.sendRedirect(request.getContextPath());
     }
+    
 }
