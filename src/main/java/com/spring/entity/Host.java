@@ -7,11 +7,12 @@ public class Host {
 	private int id;
 	private int privateMac;
 	private String hostName;
-	private int sn;
-	private int project;
-	private int idc;
+	private String sn;
+	private String project;
+	private String idc;
 	private String machineType;
 	private String osType;
+	private String status;
 	private int alive;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
@@ -42,27 +43,27 @@ public class Host {
 		this.hostName = hostName;
 	}
 
-	public int getSn() {
+	public String getSn() {
 		return sn;
 	}
 
-	public void setSn(int sn) {
+	public void setSn(String sn) {
 		this.sn = sn;
 	}
 
-	public int getProject() {
+	public String getProject() {
 		return project;
 	}
 
-	public void setProject(int project) {
+	public void setProject(String project) {
 		this.project = project;
 	}
 
-	public int getIdc() {
+	public String getIdc() {
 		return idc;
 	}
 
-	public void setIdc(int idc) {
+	public void setIdc(String idc) {
 		this.idc = idc;
 	}
 
@@ -113,8 +114,13 @@ public class Host {
 	public void setMetadatas(List<Metadata> metadatas) {
 		this.metadatas = metadatas;
 	}
-	
-	
-	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 }
