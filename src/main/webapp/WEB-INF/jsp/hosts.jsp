@@ -341,10 +341,13 @@
                                             <a class="close-link">
                                                 <i class="fa fa-times"></i>
                                             </a>
+                                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                                         </div>
                                     </div>
                                     <div class="ibox-content">
-                                        <table class="table table-hover no-margins">
+                                        <!-- http://jingyan.baidu.com/article/a3a3f8118b954d8da2eb8af9.html -->
+                                        <table class="table table-hover no-margins table-bordered 
+                                        table-striped table-hover table-condensed table-responsive">
                                             <thead>
                                                 <tr>
                                                     <th>主机名</th>
@@ -353,7 +356,9 @@
 													<th>内网IP</th>
 													<th>外网IP</th>													
 													<th>机器类型</th>
-                                                    <th>操作系统</th>                                                    
+                                                    <th>操作系统</th>
+                                                    <th>主机状态</th>
+                                                    <th>操作</th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -370,6 +375,7 @@
 											   host.setSn("SN11111");
 											   host.setMachineType("戴尔720");
 											   host.setOsType("Linux-Ubuntu");
+											   host.setStatus("DOWN");
 											   host.setMetadatas(metadatas);
 											   hostList.add(host);hostList.add(host);hostList.add(host);
 											   hostList.add(host);hostList.add(host);hostList.add(host);
@@ -379,6 +385,7 @@
 											   host2.setSn("SN22222");
 											   host2.setMachineType("戴尔720");
 											   host2.setOsType("Linux-Ubuntu");
+											   host2.setStatus("UP");
 											   host2.setMetadatas(metadatas);
 											   hostList.add(host2);hostList.add(host2);hostList.add(host2);
 											   for(Host itemHost:hostList){%>
@@ -389,7 +396,14 @@
 													<td><%=itemHost.getMetadatas().get(0).getValue() %></td>
 													<td><%=itemHost.getMetadatas().get(1).getValue() %></td>
 													<td><%=itemHost.getMachineType() %></td>
-													<td><%=itemHost.getOsType() %></td>                                                    
+													<td><%=itemHost.getOsType() %></td> 
+													<td><%=itemHost.getStatus() %></td>
+													<%if(itemHost.getStatus().equals("DOWN")){%>
+													    <td><a href="boot.do?sn=<%=itemHost.getSn()%>">开机</a></td>
+													<%}else{%>
+													    <td><a href="shutdown.do?sn=<%=itemHost.getSn()%>">关机</a></td>
+													<%}%>
+													                                                   
                                                 </tr>
                                                 <%}%>
                                                 

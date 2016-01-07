@@ -902,7 +902,7 @@ $(function () {
                 name:'速度',
                 type:'gauge',
                 min:0,
-                max:220,
+                max:100,
                 splitNumber:11,
                 axisLine: {            // 坐标轴线
                     lineStyle: {       // 属性lineStyle控制线条样式

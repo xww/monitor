@@ -1,6 +1,7 @@
 package com.spring.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public class Host {
@@ -13,7 +14,7 @@ public class Host {
 	private String machineType;
 	private String osType;
 	private String status;
-	private int alive;
+	private int heartbeat;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 	
@@ -83,14 +84,6 @@ public class Host {
 		this.osType = osType;
 	}
 
-	public int getAlive() {
-		return alive;
-	}
-
-	public void setAlive(int alive) {
-		this.alive = alive;
-	}
-
 	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
@@ -121,6 +114,21 @@ public class Host {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getHeartbeat() {
+		return heartbeat;
+	}
+
+	public void setHeartbeat(int heartbeat) {
+		this.heartbeat = heartbeat;
+	}
+	
+	public void geneStatus(){
+		if((new Date().getTime()/1000 - this.heartbeat) > 5){
+			this.status = "DOWN";
+		}
+		this.status="UP";
 	}
 
 }
