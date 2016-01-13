@@ -1,4 +1,5 @@
-//Flot Bar Chart
+var timeInterval = 2000;
+/*//Flot Bar Chart
 $(function() {
     var barOptions = {
         series: {
@@ -47,9 +48,9 @@ $(function() {
     };
     $.plot($("#flot-bar-chart"), [barData], barOptions);
 
-});
+});*/
 
-$(function() {
+/*$(function() {
     var barOptions = {
         series: {
             lines: {
@@ -97,8 +98,735 @@ $(function() {
     };
     $.plot($("#flot-line-chart"), [barData], barOptions);
 
+});*/
+$(function() {
+	
+	function getTimeXaxis(){
+        var currentMillisecond = Date.parse(new Date());
+		var timeXaxis = []
+		for(var i=5;i>=0;i--){
+			var tmp = new Date(currentMillisecond - 5*i*60*1000);
+			
+			if(tmp.getMinutes()<10){
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':0' + tmp.getMinutes());
+			}else{
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':' + tmp.getMinutes());
+			}			
+		}
+		return timeXaxis;
+	}	
+	
+	function plotGraph(){	
+        	
+	    var timeXaxis = getTimeXaxis();
+		var barOptions = {
+        series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+        xaxis: {
+            tickDecimals: 0
+        },
+        colors: ["#1ab394"],
+        grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+        legend: {
+            show: false
+        },
+        tooltip: true,
+        tooltipOpts: {
+            content: "x: %x, y: %y"
+        }
+    };
+    var barData = {
+        label: "bar",
+        data: [
+            [1, 34],
+            [2, 25],
+            [3, 19],
+            [4, 34],
+            [5, 32],
+            [6, 44]
+        ]
+    };
+    //$.plot($("#flot-line-chart"), [barData], barOptions);
+	
+	var barData2 = {label: "bar2", data: [[1, 103], [2, 280], [3, 135], [4, 130], [5, 145], [6, 155], [7, 155], [8, 155], [9, 155], [10, 155], [11, 155], [12, 155]] }
+    var barData3 = {label: "bar2", data: [[1, 103], [2, 120], [3, 135], [4, 130], [5, 195], [6, 155], [7, 155], [8, 325], [9, 155], [10, 155], [11, 256], [12, 155]] }
+    var barData4 = {label: "bar2", data: [[1,Math.random() * 100],[2,Math.random() * 100],[3,Math.random() * 100],[4,Math.random() * 100],[5,Math.random() * 100],[6,Math.random() * 100],[7,Math.random() * 100],[8,Math.random() * 100],
+	                      [9,Math.random() * 100],[10,Math.random() * 100],[11,Math.random() * 100],[12,Math.random() * 100],[13,Math.random() * 100],[14,Math.random() * 100]]}	
+	
+	var barOptions2 = {
+        //series: { lines: { show: true }, points: { show: true} },
+		series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: false,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+		
+		 
+        xaxis: { ticks: [
+		[1, timeXaxis[0]], 
+		[3, timeXaxis[1]], 
+		[5, timeXaxis[2]], 
+		[7, timeXaxis[3]], 
+		[9, timeXaxis[4]], 
+		[11, timeXaxis[5]]],		
+		min: 1, max: 12 },  
+		
+		colors: ["#1ab394"],
+		grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+		legend: {
+            show: true
+        },  		
+		
+        yaxis: { ticks: 5, min: 0 }  //在y轴方向显示5个刻度，此时显示内容由 flot 根据所给的数据自动判断
+        }
+		
+	$.plot($("#flot-line-chart-cpu"), [barData4], barOptions2);
+	}
+	plotGraph()
+	setInterval(plotGraph,timeInterval);
+    
+
 });
-//Flot Pie Chart
+
+$(function() {
+	
+	function getTimeXaxis(){
+        var currentMillisecond = Date.parse(new Date());
+		var timeXaxis = []
+		for(var i=5;i>=0;i--){
+			var tmp = new Date(currentMillisecond - 5*i*60*1000);
+			
+			if(tmp.getMinutes()<10){
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':0' + tmp.getMinutes());
+			}else{
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':' + tmp.getMinutes());
+			}			
+		}
+		return timeXaxis;
+	}	
+	
+	function plotGraph(){	
+        	
+	    var timeXaxis = getTimeXaxis();
+		var barOptions = {
+        series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+        xaxis: {
+            tickDecimals: 0
+        },
+        colors: ["#1ab394"],
+        grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+        legend: {
+            show: false
+        },
+        tooltip: true,
+        tooltipOpts: {
+            content: "x: %x, y: %y"
+        }
+    };
+    var barData = {
+        label: "bar",
+        data: [
+            [1, 34],
+            [2, 25],
+            [3, 19],
+            [4, 34],
+            [5, 32],
+            [6, 44]
+        ]
+    };
+    //$.plot($("#flot-line-chart"), [barData], barOptions);
+	
+	var barData2 = {label: "bar2", data: [[1, 103], [2, 280], [3, 135], [4, 130], [5, 145], [6, 155], [7, 155], [8, 155], [9, 155], [10, 155], [11, 155], [12, 155]] }
+    var barData3 = {label: "bar2", data: [[1, 103], [2, 120], [3, 135], [4, 130], [5, 195], [6, 155], [7, 155], [8, 325], [9, 155], [10, 155], [11, 256], [12, 155]] }
+	var barData4 = {label: "bar2", data: [[1,Math.random() * 100],[2,Math.random() * 100],[3,Math.random() * 100],[4,Math.random() * 100],[5,Math.random() * 100],[6,Math.random() * 100],[7,Math.random() * 100],[8,Math.random() * 100],
+	            	                      [9,Math.random() * 100],[10,Math.random() * 100],[11,Math.random() * 100],[12,Math.random() * 100],[13,Math.random() * 100],[14,Math.random() * 100]]}	
+	
+	var barOptions2 = {
+        //series: { lines: { show: true }, points: { show: true} },
+		series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: false,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+		
+		 
+        xaxis: { ticks: [
+		[1, timeXaxis[0]], 
+		[3, timeXaxis[1]], 
+		[5, timeXaxis[2]], 
+		[7, timeXaxis[3]], 
+		[9, timeXaxis[4]], 
+		[11, timeXaxis[5]]],		
+		min: 1, max: 12 },  
+		
+		colors: ["#1ab394"],
+		grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+		legend: {
+            show: true
+        },  		
+		
+        yaxis: { ticks: 5, min: 0 }  //在y轴方向显示5个刻度，此时显示内容由 flot 根据所给的数据自动判断
+        }
+		
+	$.plot($("#flot-line-chart-mem"), [barData4], barOptions2);
+	}
+	plotGraph()
+	setInterval(plotGraph,timeInterval);
+    
+
+});
+$(function() {
+	
+	function getTimeXaxis(){
+        var currentMillisecond = Date.parse(new Date());
+		var timeXaxis = []
+		for(var i=5;i>=0;i--){
+			var tmp = new Date(currentMillisecond - 5*i*60*1000);
+			
+			if(tmp.getMinutes()<10){
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':0' + tmp.getMinutes());
+			}else{
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':' + tmp.getMinutes());
+			}			
+		}
+		return timeXaxis;
+	}	
+	
+	function plotGraph(){	
+        	
+	    var timeXaxis = getTimeXaxis();
+		var barOptions = {
+        series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+        xaxis: {
+            tickDecimals: 0
+        },
+        colors: ["#1ab394"],
+        grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+        legend: {
+            show: false
+        },
+        tooltip: true,
+        tooltipOpts: {
+            content: "x: %x, y: %y"
+        }
+    };
+    var barData = {
+        label: "bar",
+        data: [
+            [1, 34],
+            [2, 25],
+            [3, 19],
+            [4, 34],
+            [5, 32],
+            [6, 44]
+        ]
+    };
+    //$.plot($("#flot-line-chart"), [barData], barOptions);
+	
+	var barData2 = {label: "bar2", data: [[1, 103], [2, 280], [3, 135], [4, 130], [5, 145], [6, 155], [7, 155], [8, 155], [9, 155], [10, 155], [11, 155], [12, 155]] }
+    var barData3 = {label: "bar2", data: [[1, 103], [2, 120], [3, 135], [4, 130], [5, 195], [6, 155], [7, 155], [8, 325], [9, 155], [10, 155], [11, 256], [12, 155]] }
+	var barData4 = {label: "bar2", data: [[1,Math.random() * 100],[2,Math.random() * 100],[3,Math.random() * 100],[4,Math.random() * 100],[5,Math.random() * 100],[6,Math.random() * 100],[7,Math.random() * 100],[8,Math.random() * 100],
+	            	                      [9,Math.random() * 100],[10,Math.random() * 100],[11,Math.random() * 100],[12,Math.random() * 100],[13,Math.random() * 100],[14,Math.random() * 100]]}	
+	
+	var barOptions2 = {
+        //series: { lines: { show: true }, points: { show: true} },
+		series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: false,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+		
+		 
+        xaxis: { ticks: [
+		[1, timeXaxis[0]], 
+		[3, timeXaxis[1]], 
+		[5, timeXaxis[2]], 
+		[7, timeXaxis[3]], 
+		[9, timeXaxis[4]], 
+		[11, timeXaxis[5]]],		
+		min: 1, max: 12 },  
+		
+		colors: ["#1ab394"],
+		grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+		legend: {
+            show: true
+        },  		
+		
+        yaxis: { ticks: 5, min: 0 }  //在y轴方向显示5个刻度，此时显示内容由 flot 根据所给的数据自动判断
+        }
+		
+	$.plot($("#flot-line-chart-disk-read-mbs"), [barData4], barOptions2);
+	}
+	plotGraph()
+	setInterval(plotGraph,timeInterval);
+    
+
+});
+$(function() {
+	
+	function getTimeXaxis(){
+        var currentMillisecond = Date.parse(new Date());
+		var timeXaxis = []
+		for(var i=5;i>=0;i--){
+			var tmp = new Date(currentMillisecond - 5*i*60*1000);
+			
+			if(tmp.getMinutes()<10){
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':0' + tmp.getMinutes());
+			}else{
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':' + tmp.getMinutes());
+			}			
+		}
+		return timeXaxis;
+	}	
+	
+	function plotGraph(){	
+        	
+	    var timeXaxis = getTimeXaxis();
+		var barOptions = {
+        series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+        xaxis: {
+            tickDecimals: 0
+        },
+        colors: ["#1ab394"],
+        grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+        legend: {
+            show: false
+        },
+        tooltip: true,
+        tooltipOpts: {
+            content: "x: %x, y: %y"
+        }
+    };
+    var barData = {
+        label: "bar",
+        data: [
+            [1, 34],
+            [2, 25],
+            [3, 19],
+            [4, 34],
+            [5, 32],
+            [6, 44]
+        ]
+    };
+    //$.plot($("#flot-line-chart"), [barData], barOptions);
+	
+	var barData2 = {label: "bar2", data: [[1, 103], [2, 280], [3, 135], [4, 130], [5, 145], [6, 155], [7, 155], [8, 155], [9, 155], [10, 155], [11, 155], [12, 155]] }
+    var barData3 = {label: "bar2", data: [[1, 103], [2, 120], [3, 135], [4, 130], [5, 195], [6, 155], [7, 155], [8, 325], [9, 155], [10, 155], [11, 256], [12, 155]] }
+	var barData4 = {label: "bar2", data: [[1,Math.random() * 100],[2,Math.random() * 100],[3,Math.random() * 100],[4,Math.random() * 100],[5,Math.random() * 100],[6,Math.random() * 100],[7,Math.random() * 100],[8,Math.random() * 100],
+	            	                      [9,Math.random() * 100],[10,Math.random() * 100],[11,Math.random() * 100],[12,Math.random() * 100],[13,Math.random() * 100],[14,Math.random() * 100]]}	
+	
+	var barOptions2 = {
+        //series: { lines: { show: true }, points: { show: true} },
+		series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: false,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+		
+		 
+        xaxis: { ticks: [
+		[1, timeXaxis[0]], 
+		[3, timeXaxis[1]], 
+		[5, timeXaxis[2]], 
+		[7, timeXaxis[3]], 
+		[9, timeXaxis[4]], 
+		[11, timeXaxis[5]]],		
+		min: 1, max: 12 },  
+		
+		colors: ["#1ab394"],
+		grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+		legend: {
+            show: true
+        },  		
+		
+        yaxis: { ticks: 5, min: 0 }  //在y轴方向显示5个刻度，此时显示内容由 flot 根据所给的数据自动判断
+        }
+		
+	$.plot($("#flot-line-chart-disk-write-mbs"), [barData4], barOptions2);
+	}
+	plotGraph()
+	setInterval(plotGraph,timeInterval);
+    
+
+});
+$(function() {
+	
+	function getTimeXaxis(){
+        var currentMillisecond = Date.parse(new Date());
+		var timeXaxis = []
+		for(var i=5;i>=0;i--){
+			var tmp = new Date(currentMillisecond - 5*i*60*1000);
+			
+			if(tmp.getMinutes()<10){
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':0' + tmp.getMinutes());
+			}else{
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':' + tmp.getMinutes());
+			}			
+		}
+		return timeXaxis;
+	}	
+	
+	function plotGraph(){	
+        	
+	    var timeXaxis = getTimeXaxis();
+		var barOptions = {
+        series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+        xaxis: {
+            tickDecimals: 0
+        },
+        colors: ["#1ab394"],
+        grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+        legend: {
+            show: false
+        },
+        tooltip: true,
+        tooltipOpts: {
+            content: "x: %x, y: %y"
+        }
+    };
+    var barData = {
+        label: "bar",
+        data: [
+            [1, 34],
+            [2, 25],
+            [3, 19],
+            [4, 34],
+            [5, 32],
+            [6, 44]
+        ]
+    };
+    //$.plot($("#flot-line-chart"), [barData], barOptions);
+	
+	var barData2 = {label: "bar2", data: [[1, 103], [2, 280], [3, 135], [4, 130], [5, 145], [6, 155], [7, 155], [8, 155], [9, 155], [10, 155], [11, 155], [12, 155]] }
+    var barData3 = {label: "bar2", data: [[1, 103], [2, 120], [3, 135], [4, 130], [5, 195], [6, 155], [7, 155], [8, 325], [9, 155], [10, 155], [11, 256], [12, 155]] }
+	var barData4 = {label: "bar2", data: [[1,Math.random() * 100],[2,Math.random() * 100],[3,Math.random() * 100],[4,Math.random() * 100],[5,Math.random() * 100],[6,Math.random() * 100],[7,Math.random() * 100],[8,Math.random() * 100],
+	            	                      [9,Math.random() * 100],[10,Math.random() * 100],[11,Math.random() * 100],[12,Math.random() * 100],[13,Math.random() * 100],[14,Math.random() * 100]]}	
+	
+	var barOptions2 = {
+        //series: { lines: { show: true }, points: { show: true} },
+		series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: false,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+		
+		 
+        xaxis: { ticks: [
+		[1, timeXaxis[0]], 
+		[3, timeXaxis[1]], 
+		[5, timeXaxis[2]], 
+		[7, timeXaxis[3]], 
+		[9, timeXaxis[4]], 
+		[11, timeXaxis[5]]],		
+		min: 1, max: 12 },  
+		
+		colors: ["#1ab394"],
+		grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+		legend: {
+            show: true
+        },  		
+		
+        yaxis: { ticks: 5, min: 0 }  //在y轴方向显示5个刻度，此时显示内容由 flot 根据所给的数据自动判断
+        }
+		
+	$.plot($("#flot-line-chart-net-in"), [barData4], barOptions2);
+	}
+	plotGraph()
+	setInterval(plotGraph,timeInterval);
+    
+
+});
+$(function() {
+	
+	function getTimeXaxis(){
+        var currentMillisecond = Date.parse(new Date());
+		var timeXaxis = []
+		for(var i=5;i>=0;i--){
+			var tmp = new Date(currentMillisecond - 5*i*60*1000);
+			
+			if(tmp.getMinutes()<10){
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':0' + tmp.getMinutes());
+			}else{
+				timeXaxis.push((tmp.getMonth()+1).toString()+'-' + tmp.getDate().toString()+' '+ tmp.getHours().toString() + ':' + tmp.getMinutes());
+			}			
+		}
+		return timeXaxis;
+	}	
+	
+	function plotGraph(){	
+        	
+	    var timeXaxis = getTimeXaxis();
+		var barOptions = {
+        series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+        xaxis: {
+            tickDecimals: 0
+        },
+        colors: ["#1ab394"],
+        grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+        legend: {
+            show: false
+        },
+        tooltip: true,
+        tooltipOpts: {
+            content: "x: %x, y: %y"
+        }
+    };
+    var barData = {
+        label: "bar",
+        data: [
+            [1, 34],
+            [2, 25],
+            [3, 19],
+            [4, 34],
+            [5, 32],
+            [6, 44]
+        ]
+    };
+    //$.plot($("#flot-line-chart"), [barData], barOptions);
+	
+	var barData2 = {label: "bar2", data: [[1, 103], [2, 280], [3, 135], [4, 130], [5, 145], [6, 155], [7, 155], [8, 155], [9, 155], [10, 155], [11, 155], [12, 155]] }
+    var barData3 = {label: "bar2", data: [[1, 103], [2, 120], [3, 135], [4, 130], [5, 195], [6, 155], [7, 155], [8, 325], [9, 155], [10, 155], [11, 256], [12, 155]] }
+	var barData4 = {label: "bar2", data: [[1,Math.random() * 100],[2,Math.random() * 100],[3,Math.random() * 100],[4,Math.random() * 100],[5,Math.random() * 100],[6,Math.random() * 100],[7,Math.random() * 100],[8,Math.random() * 100],
+	            	                      [9,Math.random() * 100],[10,Math.random() * 100],[11,Math.random() * 100],[12,Math.random() * 100],[13,Math.random() * 100],[14,Math.random() * 100]]}	
+	
+	var barOptions2 = {
+        //series: { lines: { show: true }, points: { show: true} },
+		series: {
+            lines: {
+                show: true,
+                lineWidth: 2,
+                fill: false,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.0
+                    }, {
+                        opacity: 0.0
+                    }]
+                }
+            }
+        },
+		
+		 
+        xaxis: { ticks: [
+		[1, timeXaxis[0]], 
+		[3, timeXaxis[1]], 
+		[5, timeXaxis[2]], 
+		[7, timeXaxis[3]], 
+		[9, timeXaxis[4]], 
+		[11, timeXaxis[5]]],		
+		min: 1, max: 12 },  
+		
+		colors: ["#1ab394"],
+		grid: {
+            color: "#999999",
+            hoverable: true,
+            clickable: true,
+            tickColor: "#D4D4D4",
+            borderWidth:0
+        },
+		legend: {
+            show: true
+        },  		
+		
+        yaxis: { ticks: 5, min: 0 }  //在y轴方向显示5个刻度，此时显示内容由 flot 根据所给的数据自动判断
+        }
+		
+	$.plot($("#flot-line-chart-net-out"), [barData4], barOptions2);
+	}
+	plotGraph()
+	setInterval(plotGraph,timeInterval);
+    
+
+});
+/*//Flot Pie Chart
 $(function() {
 
     var data = [{
@@ -1259,7 +1987,7 @@ $(function() {
     $("button").click(function() {
         doPlot($(this).text());
     });
-});
+});*/
 
 
 

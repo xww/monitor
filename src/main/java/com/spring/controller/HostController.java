@@ -22,18 +22,18 @@ public class HostController {
 	@Resource
     private HostService hostService;
 	
-	@RequestMapping("/host/{id}")
-    @ResponseBody
-    public Host getHost(@PathVariable int id){
-    	
-    	Host host = hostService.getHostById(id);
-    	return host;
-    }
+	
 	
 	@RequestMapping("/hosts")
 	public ModelAndView getAllHosts(){
 		List<Host> hosts = hostService.getAllHosts();
 		return new ModelAndView("hosts", "hosts", hosts);
 		
+	}
+	
+	@RequestMapping("/host")
+	public ModelAndView getHost(@RequestParam String sn){
+		//TODO：获取该sn的机器的信息
+		return new ModelAndView("host");
 	}
 }
