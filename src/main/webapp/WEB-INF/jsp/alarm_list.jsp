@@ -78,7 +78,7 @@
 							class="nav-label">告警</span><span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">							
 							<li><a href="alarm_list.do">告警列表</a></li>
-							<li><a href="alarm_rule.do">告警规则</a></li>							
+							<li><a href="alarm_rules.do">告警规则</a></li>							
 						</ul></li>
 					<li><a href="layouts.html"><i class="fa fa-columns"></i> <span
 							class="nav-label">布局</span><span
@@ -260,97 +260,41 @@
                                                    active table-striped table-hover  table-responsive">
 											<thead>
 												<tr>
-													<th>主机名</th>
-													<th>机房</th>
-													<th>项目</th>
-													<th>SN</th>
-													<th>内网IP</th>
-													<th>外网IP</th>
-													<th>机器类型</th>
-													<th>操作系统</th>
-													<th>主机状态</th>
+													<th>主机名称</th>
+													<th>主机内网IP</th>
+													<th>报警规则名</th>
+													<th>报警级别</th>
+													<th>状态</th>
+													<th>操作者IP</th>													
 													<th>操作</th>
 												</tr>
 											</thead>
 											<tbody>
 												<%
-													List<Metadata> metadatas = new ArrayList();
-													Metadata m1 = new Metadata();
-													Metadata m2 = new Metadata();
-													m1.setKey("privateIP");
-													m1.setValue("10.11.12.13");
-													m1.setKey("publicIP");
-													m1.setValue("114.114.114.114");
-													metadatas.add(m1);
-													metadatas.add(m2);
-													List<Host> hostList = new ArrayList<Host>();
-													Host host = new Host();
-													host.setHostName("compute1");
-													host.setIdc("南京");
-													host.setSn("SN11111");
-													host.setMachineType("戴尔720");
-													host.setOsType("Linux-Ubuntu");
-													host.setStatus("DOWN");
-													host.setProject("天龙");
-													host.setMetadatas(metadatas);
-													hostList.add(host);
-													hostList.add(host);
-													hostList.add(host);
-													hostList.add(host);
-													hostList.add(host);
-													hostList.add(host);
-													Host host2 = new Host();
-													host2.setHostName("compute1");
-													host2.setIdc("南京");
-													host2.setSn("SN22222");
-													host2.setMachineType("戴尔720");
-													host2.setOsType("Linux-Ubuntu");
-													host2.setStatus("UP");
-													host.setProject("仙剑");
-													host2.setMetadatas(metadatas);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													/*hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2); */
-													for (Host itemHost : hostList) {
+												List<AlarmDetail>alarmList = new ArrayList<AlarmDetail>();
+												Host host = new Host();
+												host.setHostName("compute1");
+												host.setIdc("10.11.12.13");//使用idc作为内网IP，懒得去构造metadata了
+												AlarmDetail  alarm = new AlarmDetail();
+												alarm.setHost(host);
+												alarm.setAlarmRuleName("CPU使用率监控规则");
+												alarm.setAlarmLevel("严重");
+												alarm.setStatus("已处理");
+												alarm.setOpratorIp("10.12.5.192");
+												
+												alarmList.add(alarm);alarmList.add(alarm);alarmList.add(alarm);alarmList.add(alarm);
+												alarmList.add(alarm);alarmList.add(alarm);alarmList.add(alarm);alarmList.add(alarm);
+												for (AlarmDetail a: alarmList) {
 												%>
 												<tr class="success">
-													<td><a href="host.do?sn=<%=itemHost.getSn()%>"><%=itemHost.getHostName()%></a></td>
-													<td><%=itemHost.getIdc()%></td>
-													<td><%=itemHost.getProject()%></td>
-													<td><%=itemHost.getSn()%></td>
-													<td><%=itemHost.getMetadatas().get(0).getValue()%></td>
-													<td><%=itemHost.getMetadatas().get(1).getValue()%></td>
-													<td><%=itemHost.getMachineType()%></td>
-													<td><%=itemHost.getOsType()%></td>
-													<td><%=itemHost.getStatus()%></td>
-													<%
-														if (itemHost.getStatus().equals("DOWN")) {
-													%>
-													<td><a href="boot.do?sn=<%=itemHost.getSn()%>">开机</a></td>
-													<%
-														} else {
-													%>
-													<td><a href="shutdown.do?sn=<%=itemHost.getSn()%>">关机</a></td>
-													<%
-														}
-													%>
+													
+													<td><%=a.getHost().getHostName() %></td>
+													<td><%=a.getHost().getIdc() %></td>
+													<td><a href="alarm_rules.do?"><%=a.getAlarmRuleName() %></a></td>
+													<td><%=a.getAlarmLevel()  %></td>
+													<td><%=a.getStatus() %></td>
+													<td><%=a.getOpratorIp() %></td>													
+													<td><a href="#">删除</a></td>
 
 												</tr>
 												<%

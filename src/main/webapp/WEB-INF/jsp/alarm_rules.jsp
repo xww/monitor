@@ -78,7 +78,7 @@
 							class="nav-label">告警</span><span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">							
 							<li><a href="alarm_list.do">告警列表</a></li>
-							<li><a href="alarm_rule.do">告警规则</a></li>							
+							<li><a href="alarm_rules.do">告警规则</a></li>							
 						</ul></li>
 					<li><a href="layouts.html"><i class="fa fa-columns"></i> <span
 							class="nav-label">布局</span><span
@@ -260,97 +260,35 @@
                                                    active table-striped table-hover  table-responsive">
 											<thead>
 												<tr>
-													<th>主机名</th>
-													<th>机房</th>
-													<th>项目</th>
-													<th>SN</th>
-													<th>内网IP</th>
-													<th>外网IP</th>
-													<th>机器类型</th>
-													<th>操作系统</th>
-													<th>主机状态</th>
+													<th>告警规则名</th>
+													<th>告警类型</th>
+													<th>关系</th>
+													<th>阀值</th>
+													<th>告警级别</th>													
 													<th>操作</th>
 												</tr>
 											</thead>
 											<tbody>
 												<%
-													List<Metadata> metadatas = new ArrayList();
-													Metadata m1 = new Metadata();
-													Metadata m2 = new Metadata();
-													m1.setKey("privateIP");
-													m1.setValue("10.11.12.13");
-													m1.setKey("publicIP");
-													m1.setValue("114.114.114.114");
-													metadatas.add(m1);
-													metadatas.add(m2);
-													List<Host> hostList = new ArrayList<Host>();
-													Host host = new Host();
-													host.setHostName("compute1");
-													host.setIdc("南京");
-													host.setSn("SN11111");
-													host.setMachineType("戴尔720");
-													host.setOsType("Linux-Ubuntu");
-													host.setStatus("DOWN");
-													host.setProject("天龙");
-													host.setMetadatas(metadatas);
-													hostList.add(host);
-													hostList.add(host);
-													hostList.add(host);
-													hostList.add(host);
-													hostList.add(host);
-													hostList.add(host);
-													Host host2 = new Host();
-													host2.setHostName("compute1");
-													host2.setIdc("南京");
-													host2.setSn("SN22222");
-													host2.setMachineType("戴尔720");
-													host2.setOsType("Linux-Ubuntu");
-													host2.setStatus("UP");
-													host.setProject("仙剑");
-													host2.setMetadatas(metadatas);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													hostList.add(host2);
-													/*hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2);
-													hostList.add(host2);hostList.add(host2);hostList.add(host2); */
-													for (Host itemHost : hostList) {
+												List<AlarmRule>alarmRulesList = new ArrayList<AlarmRule>();
+												AlarmRule rule = new AlarmRule();
+												rule.setName("CPU使用率告警规则");
+												rule.setType("CPU");
+												rule.setRelation(1);
+												rule.setThreshold(80);
+												rule.setAlarmLevel("严重");
+												alarmRulesList.add(rule);alarmRulesList.add(rule);alarmRulesList.add(rule);alarmRulesList.add(rule);
+												alarmRulesList.add(rule);alarmRulesList.add(rule);alarmRulesList.add(rule);alarmRulesList.add(rule);
+												for (AlarmRule r: alarmRulesList) {
 												%>
-												<tr class="success">
-													<td><a href="host.do?sn=<%=itemHost.getSn()%>"><%=itemHost.getHostName()%></a></td>
-													<td><%=itemHost.getIdc()%></td>
-													<td><%=itemHost.getProject()%></td>
-													<td><%=itemHost.getSn()%></td>
-													<td><%=itemHost.getMetadatas().get(0).getValue()%></td>
-													<td><%=itemHost.getMetadatas().get(1).getValue()%></td>
-													<td><%=itemHost.getMachineType()%></td>
-													<td><%=itemHost.getOsType()%></td>
-													<td><%=itemHost.getStatus()%></td>
-													<%
-														if (itemHost.getStatus().equals("DOWN")) {
-													%>
-													<td><a href="boot.do?sn=<%=itemHost.getSn()%>">开机</a></td>
-													<%
-														} else {
-													%>
-													<td><a href="shutdown.do?sn=<%=itemHost.getSn()%>">关机</a></td>
-													<%
-														}
-													%>
+												<tr class="success">													
+													<td><%=r.getName() %></td>
+													<td><%=r.getType() %></td>
+													<td>大于</td>
+													<td><%=r.getThreshold() %></td>
+													<td><%=r.getAlarmLevel() %></td>
+													<td><a href="#">编辑</a> <a href="#">添加主机</a></td>
+													
 
 												</tr>
 												<%

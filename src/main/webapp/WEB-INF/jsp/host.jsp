@@ -71,7 +71,7 @@
 							class="nav-label">告警</span><span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">							
 							<li><a href="alarm_list.do">告警列表</a></li>
-							<li><a href="alarm_rule.do">告警规则</a></li>							
+							<li><a href="alarm_rules.do">告警规则</a></li>							
 						</ul></li>
 					<li><a href="layouts.html"><i class="fa fa-columns"></i> <span
 							class="nav-label">布局</span><span
